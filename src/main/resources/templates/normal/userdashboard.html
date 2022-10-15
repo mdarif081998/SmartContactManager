@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>User Dashboard</title>
+</head>
+<body>
+	<section class="user-banner">
+				<div class="container text-center" th:if="${user}">
+
+					<img class="my-profile-pic mt-1" alt=""
+						style="height: 150px; width: 150px;"
+						th:src="@{'/img/userimage/'+${user.image}}">
+				</div>
+		<div class="font-italic">
+			<h3 class="ml-4">
+				<span th:text="${'Hi '+user.name+','}"></span>
+			</h3>
+			<h3 class="text-center">Welcome to Smart Contact Manager</h3>
+		</div>
+
+		<div class=" d-flex justify-content-center align-items-center">
+
+			<div class="text-center">
+				<div class="font-italic text-secondary mt-2">
+					<h1>Start Adding Your Contacts on Cloud...</h1>
+					<form action="/user/add-contact">
+						<button type="submit" class="btn bg-primary btn-lg text-white mt-2">Get
+							Started</button>
+					</form>
+				</div>
+			</div>
+		</div>
+				<script>
+		$(document).ready(()=>{
+			$(".item").removeClass("active");
+			$("#home-link").addClass("active");
+		});
+		</script>
+	</section>
+</body>
+</html>

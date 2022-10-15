@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Add Contact</title>
+</head>
+<body>
+	<section>
+		<div class="card col-md-9 offset-md-1">
+			<div class="card-body">
+				<h2 class="text-center">Add Contact</h2>
+				<div class="container-fluid mt-4">
+					<div>
+						<div class="alert alert-danger" th:if="${session.danger}">
+							<h5 th:text="${session.danger}"></h5>
+							<th:block th:text="${#session.removeAttribute('danger')}"></th:block>
+						</div>
+						<div class="alert alert-success" th:if="${session.success}">
+							<h5 th:text="${session.success}"></h5>
+							<th:block th:text="${#session.removeAttribute('success')}"></th:block>
+						</div>
+					</div>
+					<div class="row">
+						<div class="">
+							<form action="" th:object="${contact}"
+								enctype="multipart/form-data" method="post"
+								th:action="@{/user/process-contact}" class="mt-2">
+
+								<!-- Name -->
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input type="text" id="name" name="name"
+										th:classappend="${#fields.hasErrors('name')? 'is-invalid':''}"
+										placeholder="Enter Name Here" class="form-control" required>
+									<div class="invalid-feedback"
+										th:each="e:${#fields.errors('name')}" th:text="${e}"></div>
+								</div>
+								<!-- Nick Name -->
+								<div class="input-group mt-3">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<i class="fas fa-user-alt"></i>
+										</div>
+									</div>
+									<input type="text" id="nickName" name="nickName"
+										th:classappend="${#fields.hasErrors('nickName')? 'is-invalid':''}"
+										placeholder="Enter Nickname if any" class="form-control">
+									<div class="invalid-feedback"
+										th:each="e:${#fields.errors('nickName')}" th:text="${e}"></div>
+								</div>
+								<!-- Work -->
+								<div class="input-group mt-3">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<i class="fas fa-briefcase"></i>
+										</div>
+									</div>
+									<input type="text" id="work" name="work"
+										th:classappend="${#fields.hasErrors('work')? 'is-invalid':''}"
+										placeholder="Enter Work/Postion" class="form-control">
+									<div class="invalid-feedback"
+										th:each="e:${#fields.errors('work')}" th:text="${e}"></div>
+								</div>
+
+								<!-- Phone Number -->
+								<div class="input-group mt-3">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<i class="fas fa-phone"></i>
+										</div>
+									</div>
+									<input type="number" id="phoneNo" name="phoneNo"
+										th:classappend="${#fields.hasErrors('phoneNo')? 'is-invalid':''}"
+										placeholder="Enter Phone Number" class="form-control" required>
+									<div class="invalid-feedback"
+										th:each="e:${#fields.errors('phoneNo')}" th:text="${e}"></div>
+								</div>
+								<!-- Alternate Phone Number -->
+								<div class="input-group mt-3">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<i class="fas fa-phone"></i>
+										</div>
+									</div>
+									<input type="number" id="alternatePhoneNo"
+										th:classappend="${#fields.hasErrors('alternatePhoneNo')? 'is-invalid':''}"
+										name="alternatePhoneNo"
+										placeholder="Alternate Phone Number (if any otherwise enter 0)"
+										class="form-control">
+									<div class="invalid-feedback"
+										th:each="e:${#fields.errors('alternatePhoneNo')}"
+										th:text="${e}"></div>
+								</div>
+								<!-- Email -->
+								<div class="input-group mt-3">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<i>@</i>
+										</div>
+									</div>
+									<input type="email" id="email" name="email"
+										th:classappend="${#fields.hasErrors('email')? 'is-invalid':''}"
+										placeholder="Enter Username/Email Address"
+										class="form-control">
+									<div class="invalid-feedback"
+										th:each="e:${#fields.errors('email')}" th:text="${e}"></div>
+								</div>
+								<!-- image -->
+								<div class="custom-file mt-3">
+
+									<input type="file" id="image" name="contactimage"
+										class="form-control">
+
+								</div>
+								<!-- Description -->
+								<div class="input-group mt-3">
+									<textarea rows="5" id="description" name="description"
+										th:classappend="${#fields.hasErrors('description')? 'is-invalid':''}"
+										placeholder="Enter Description Here" class="form-control"></textarea>
+									<div class="invalid-feedback"
+										th:each="e:${#fields.errors('description')}" th:text="${e}"></div>
+								</div>
+
+								<!-- Submit And Reset buttons -->
+								<div class="text-center mt-3">
+									<button type="submit" class="btn bg-primary text-white">Save
+										Contact</button>
+									<button type="reset" class="btn btn-warning">Reset</button>
+								</div>
+							</form>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<script>
+		$(document).ready(()=>{
+			$(".item").removeClass("active");
+			$("#addcontact-link").addClass("active");
+		});
+		</script>
+	</section>
+</body>
+</html>

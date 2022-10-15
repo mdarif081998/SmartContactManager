@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>Profile Page</title>
+</head>
+<body>
+	<section>
+		<div class="card mr-4 ml1">
+			<div class="card-body">
+				<div>
+					<div class="alert alert-danger" th:if="${session.danger}">
+						<h5 th:text="${session.danger}"></h5>
+						<th:block th:text="${#session.removeAttribute('danger')}"></th:block>
+					</div>
+					<div class="alert alert-success" th:if="${session.success}">
+						<h5 th:text="${session.success}"></h5>
+						<th:block th:text="${#session.removeAttribute('success')}"></th:block>
+					</div>
+				</div>
+				<div class="container text-center" th:if="${user}">
+
+					<img class="my-profile-pic mt-1" alt=""
+						style="height: 150px; width: 150px;"
+						th:src="@{'/img/userimage/'+${user.image}}">
+					<h5 class="mt-2">
+						<span th:text="${user.name}"></span>
+					</h5>
+					<div class="description mt-1">
+						<th:block th:utext="${user.about}"></th:block>
+					</div>
+
+					<table class="table table-striped ">
+						<thead>
+							<tr>
+								<th scope="col">#Id</th>
+								<th scope="col"><span th:text="${user.id}"></span></th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr>
+								<th scope="row">Phone No.</th>
+								<td><span th:text="${user.phoneNo}"></span></td>
+							</tr>
+							<tr>
+								<th scope="row">Email</th>
+								<td><span th:text="${user.email}"></span></td>
+							</tr>
+							<tr>
+								<th scope="row">Role</th>
+								<td><span th:text="${user.role}"></span></td>
+							</tr>
+							<tr>
+								<th scope="row">Account Active?</th>
+								<td><span th:text="${user.accountActive}"></span></td>
+							</tr>
+						</tbody>
+
+					</table>
+					
+					<div class="container mt-3">
+						<a th:href="@{'/user/updateuser/'+${user.id}}">
+							<button class="btn btn-success btn-sm btn-block">Update</button>
+						</a> </a> <a href="#" th:onclick="|deleteUserAccount(${user.id})|"
+							class="btn btn-danger btn-sm btn-block mt-2">Delete</a> <a
+							href="/user/show-contacts/0"> <!-- <i class="fa-solid fa-address-book"></i> -->
+							<button class="btn btn-primary btn-sm btn-block mt-2">View
+								Contacts</button>
+						</a>
+					</div>
+				</div>
+				<div class="container text-center alert alert-danger"
+					th:unless="${user}">
+					<h2>Access Denied. You dont have Permision to access this
+						field...</h2>
+				</div>
+			</div>
+		</div>
+		<script>
+		$(document).ready(()=>{
+			$(".item").removeClass("active");
+			$("#profile-link").addClass("active");
+		});
+		</script>
+	
+	</section>
+</body>
+</html>
